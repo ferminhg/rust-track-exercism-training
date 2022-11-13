@@ -1,5 +1,8 @@
 use std::fmt;
 
+const MAX_HOURS: i32 = 24;
+const MAX_MINUTES: i32 = 60;
+
 #[derive(Debug, PartialEq)]
 pub struct Clock {
     hours: i32,
@@ -27,27 +30,29 @@ fn calculate_clock(hours: i32, minutes: i32) -> (i32, i32) {
 }
 
 fn calculate_hours(hours: i32) -> i32 {
-    let mut format_hours = hours;
-    while format_hours < 0 {
-        format_hours = format_hours + 24 ;
-    }
-    while format_hours >= 24 {
-        format_hours = format_hours - 24;
+    let format_hours = hours % MAX_HOURS;
+    if format_hours < 0 {
+        return format_hours + MAX_HOURS;
     }
     format_hours
+
 }
 
 fn calculate_minutes(minutes: i32) -> (i32, i32) {
-    let mut format_minutes= minutes;
-    let mut hours_added = 0;
-    while format_minutes < 0 {
-        format_minutes = format_minutes + 60;
-        hours_added -= 1;
+    if minutes >= MAX_MINUTES {
+       return (minutes % MAX_MINUTES, minutes/MAX_MINUTES);
     }
 
-    while format_minutes >= 60 {
-        format_minutes = format_minutes - 60;
-        hours_added +=1;
+    if minutes >= 0 {
+        return (minutes, 0);
+    }
+
+    let mut format_minutes= minutes ;
+    let mut hours_added = 0;
+
+    while format_minutes < 0 {
+        format_minutes += MAX_MINUTES;
+        hours_added -= 1;
     }
     (format_minutes, hours_added)
 }
