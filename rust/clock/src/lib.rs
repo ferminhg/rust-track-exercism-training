@@ -39,12 +39,8 @@ fn calculate_hours(hours: i32) -> i32 {
 }
 
 fn calculate_minutes(minutes: i32) -> (i32, i32) {
-    if minutes >= MAX_MINUTES {
-       return (minutes % MAX_MINUTES, minutes/MAX_MINUTES);
-    }
-
     if minutes >= 0 {
-        return (minutes, 0);
+       return (minutes % MAX_MINUTES, minutes/MAX_MINUTES);
     }
 
     let mut format_minutes= minutes ;
