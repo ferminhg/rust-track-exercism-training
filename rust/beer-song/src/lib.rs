@@ -23,5 +23,5 @@ pub fn sing(start: u32, end: u32) -> String {
         if number <= 0 {break;}
         number -= 1;
     }
-    verses.join("\n ")
+    verses.join("\n")
 }
