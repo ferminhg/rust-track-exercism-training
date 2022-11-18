@@ -15,13 +15,8 @@ pub fn verse(n: u32) -> String {
 }
 
 pub fn sing(start: u32, end: u32) -> String {
-    let mut number = start;
-    let mut verses = vec![];
-
-    while number >= end  {
-        verses.push(verse(number));
-        if number <= 0 {break;}
-        number -= 1;
-    }
-    verses.join("\n")
+    (end .. start + 1).rev()
+                    .map(|x| verse(x))
+                    .collect::<Vec<_>>()
+                    .join("\n")
 }
