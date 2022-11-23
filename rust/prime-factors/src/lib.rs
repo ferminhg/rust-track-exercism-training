@@ -11,7 +11,7 @@ pub fn factors(n: u64) -> Vec<u64> {
         }
         let prime = min_factor(number);
         primes.push(prime);
-        number = number / prime;
+        number /= prime;
     }
 
     primes
