@@ -10,8 +10,7 @@ pub fn brackets_are_balanced(string: &str) -> bool {
         }
     }
 
-    if open_bracket.len() != 0 { return false;}
-    true
+    open_bracket.is_empty()
 }
 
 pub fn close_bracket(bracket: char) -> Option<char> {
