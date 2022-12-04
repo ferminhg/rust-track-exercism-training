@@ -1,14 +1,11 @@
 const MINE_MARK:char = '*'; 
+const ZERO_MARK:char = ' '; 
 
 pub fn annotate(minefield: &[&str]) -> Vec<String> {
     let mut mine_matrix = matrix_builder(minefield);
     for row in 0..mine_matrix.len() {
         for col in 0..mine_matrix[0].len() {
-            if mine_matrix[row][col] == MINE_MARK { continue; }
-            let bombs = mark_adj( &mine_matrix, row, col);
-            if bombs > 0 {
-                mine_matrix[row][col] = char::from_digit(bombs as u32, 10).unwrap();
-            }
+            mine_matrix[row][col] = update_mark(&mine_matrix, row, col);
         }
     }
     matrix_to_vstring(mine_matrix)
@@ -20,9 +17,18 @@ fn matrix_to_vstring(mine_matrix: Vec<Vec<char>>) -> Vec<String> {
     }).collect::<Vec<String>>()
 }
 
-fn mark_adj<'a>(map: &'a Vec<Vec<char>>, col: usize, row: usize) -> usize {
-    let x: isize = col as isize;
-    let y: isize = row as isize;
+fn update_mark(mine_matrix: &Vec<Vec<char>>, row: usize, col: usize) -> char {
+    if mine_matrix[row][col] == MINE_MARK { return MINE_MARK; }
+    let bombs = mark_adj( &mine_matrix, row, col);
+    match bombs {
+        0 => ZERO_MARK,
+        _ => char::from_digit(bombs as u32, 10).unwrap(),
+    }
+}
+
+fn mark_adj(map: &Vec<Vec<char>>, row: usize, col: usize) -> usize {
+    let x: isize = row as isize;
+    let y: isize = col as isize;
     vec![(x-1, y-1), (x-1, y), (x-1, y+1), (x, y-1), (x, y+1),
          (x+1, y-1), (x+1, y), (x+1, y+1), ]
         .into_iter()
