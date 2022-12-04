@@ -41,10 +41,10 @@ impl Allergies {
 }
 
 fn allergies_calculator(score: u32) -> Vec<Allergen> {
-    let mut allergies = vec![];
-    for allergen in ALL_ALLERGENS {
-        let mask = allergen as u32;
-        if score & mask == mask { allergies.push(allergen);}
-    }
-    allergies
+    ALL_ALLERGENS.into_iter().filter(
+        |allergen| {
+            let mask = allergen.clone() as u32;
+            (score & mask) == mask
+        }
+    ).collect()
 }
