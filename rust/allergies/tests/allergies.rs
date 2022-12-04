@@ -88,7 +88,6 @@ fn allergic_to_eggs_and_shellfish() {
 }
 
 #[test]
-#[ignore]
 fn allergic_to_many_things() {
     let expected = &[
         Allergen::Strawberries,
@@ -103,7 +102,6 @@ fn allergic_to_many_things() {
 }
 
 #[test]
-#[ignore]
 fn allergic_to_everything() {
     let expected = &[
         Allergen::Eggs,
@@ -121,7 +119,6 @@ fn allergic_to_everything() {
 }
 
 #[test]
-#[ignore]
 fn scores_over_255_do_not_trigger_false_positives() {
     let expected = &[
         Allergen::Eggs,
